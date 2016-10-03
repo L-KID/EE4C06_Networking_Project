@@ -27,3 +27,13 @@ plot(sorted_Deg);
 hold on;
 plot(eigen_Q);
 hold off;
+
+% The following code of plotting the distribution of the degrees might be
+% INCORRECT!
+% Ref: http://stackoverflow.com/questions/7907017/count-occurrences-on-a-array-using-matlab
+% Besides, normalization is not considered.
+Deg_bin = unique(Deg);
+Deg_hist = hist(Deg, Deg_bin);
+
+figure
+plot(Deg_bin, Deg_hist);
