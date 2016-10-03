@@ -26,6 +26,10 @@ eigen_Q = eig(Q);
 plot(sorted_Deg);
 hold on;
 plot(eigen_Q);
+xlabel('k');
+ylabel('Degree and the Laplacian eigenvalues');
+title('The degree vector and the Laplacian eigenvalues of a graph');
+legend('Laplacian eigenvalues u_{(k)}','Ordered degree d_{(k)}');
 hold off;
 
 % The following code of plotting the distribution of the degrees might be
