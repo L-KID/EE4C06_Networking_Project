@@ -41,3 +41,13 @@ Deg_hist = hist(Deg, Deg_bin);
 
 figure
 plot(Deg_bin, Deg_hist);
+hold on;
+
+% Laplacian eigenvalues distribution
+rounded_eigen_Q = round(eigen_Q);
+rounded_eigen_Q_bin = unique(rounded_eigen_Q);
+rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin);
+
+plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist);
+hold off;
+
