@@ -1,4 +1,4 @@
-% This file generates an ER graph and does some subsequent computation.
+% This file generates an WS graph and does some subsequent computation.
 
 % TO DO: conduct multiple experiments and plot the average value to
 % eliminate uncertainty
