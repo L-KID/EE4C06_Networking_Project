@@ -1,7 +1,5 @@
-% This file generates an ER graph and does some subsequent computation.
-
-% TO DO: conduct multiple experiments and plot the average value to
-% eliminate uncertainty
+% This file generates an BA graph and does some subsequent computation.
+% This file generates an BA graph and does some subsequent computation.
 
 % Clear result of last computation
 clear;
@@ -11,46 +9,40 @@ clc;
 % Value assignment
 N = 500;
 m = 6;
-m0 = 7;
-n = 100; % Number of ER graphs(should be 100000)
-
-% Generate the ER graph
-%A = erdos_reyni(N, p);
-
-% Compute the degree vector
-u = ones(500, 1); % an all-one vector with 500 rows and 1 column
+m0 = 7; %m0 > m
+u = ones(500, 1); % create an all-one vector with 500 rows and 1 column
+num_simulation = 100; % Number of simulation times (should be 100000)
 
 % Define 3 cells to store arrays
-Deg_bin = cell(n,1);
-Deg_org = cell(n,1);
-eigen_Q = cell(n,1);
+Deg_bin = cell(num_simulation,1);
+Deg_org = cell(num_simulation,1);
+eigen_Q = cell(num_simulation,1);
+
+%% Plot distribution of degree and eigenvalues for 1 BA graph
+A = scalefree(N, m0, m);
+Deg = A * u; % Deg is also 500-by-1
+sorted_Deg = sort(Deg);
+diag_matrix = diag(Deg);
+Q1 = diag_matrix - A;
+eigen_Q1 = eig(Q1);
+% Plot 
+plot(sorted_Deg);
+hold on;
+plot(eigen_Q1);
+xlabel('k');
+ylabel('Degree and the Laplacian eigenvalues');
+title('The degree vector and the Laplacian eigenvalues of a graph');
+legend('Ordered degree d_{(k)}','Laplacian eigenvalues u_{(k)}');
+hold off;
 
 %% Computation with 100000 random graph for both Degree and Eigenvalue
 %Store all data in the cell, including unique array, and the original value
-for i = 1:1:n
+for i = 1:1:num_simulation
+    % Generate the BA graph
     A = scalefree(N, m0, m);
-    %Deg = A * u; % Deg is also 500-by-1
-    Deg = A*u;
-    % Plot distribution of degree and eigenvalues for 1 ER graph
-    if i == 1
-        % Compute the Laplacian matrix and its eigenvalues
-        sorted_Deg = sort(Deg);
-        diag_matrix = diag(Deg); % denoted as Delta in the report
-        Q1 = diag_matrix - A;
-        eigen_Q1 = eig(Q1);
-        
-        %plot
-        plot(sorted_Deg);
-        hold on;
-        plot(eigen_Q1);
-        xlabel('k');
-        ylabel('Degree and the Laplacian eigenvalues');
-        title('The degree vector and the Laplacian eigenvalues of a graph');
-        legend('Laplacian eigenvalues u_{(k)}','Ordered degree d_{(k)}');
-        hold off;
-    end
+    Deg = A * u; % Deg is also 500-by-1
     Diag_matrix = diag(Deg);
-    Q = Diag_matrix -A;
+    Q = Diag_matrix - A;
     eigen_Q(i,1) = {eig(Q)};
     Deg_org(i,1) = {Deg};
     Deg_bin(i,1) = {unique(Deg)};
@@ -58,11 +50,12 @@ end
 
 % compute all unique value from all data, and hist data
 Deg_all = unique(cell2mat(Deg_bin));
-Deg_hist = hist(cell2mat(Deg_org),Deg_all);
+Deg_hist = hist(cell2mat(Deg_org), Deg_all);
 
 %% Plots
 figure
-plot(Deg_all, Deg_hist/N); % divided by N to show probability
+loglog(Deg_all, Deg_hist/(N*num_simulation)); % divided by N to show probability
+xlim([0 200]); % limit x axis
 hold on;
 
 % Laplacian eigenvalues distribution
@@ -70,7 +63,8 @@ rounded_eigen_Q = round(cell2mat(eigen_Q));
 rounded_eigen_Q_bin = unique(rounded_eigen_Q);
 rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin);
 
-plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist/N ); % divided by N to show probability
+loglog(rounded_eigen_Q_bin, rounded_eigen_Q_hist/(N*num_simulation) );% divided by N to show probability
+xlim([0 200]);
 xlabel('x');
 ylabel('f_u(x)');
 title('The distribution of degree and Laplacian eigenvalues');
