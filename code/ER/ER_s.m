@@ -9,9 +9,10 @@ clc;
 N = 500;
 d_av = 12;
 p = d_av/(N-1);
-ITERATION_TIME = 500;
+ITERATION_TIME = 5000; 
 iteration = 0;
 s_vector = zeros(ITERATION_TIME, 1);
+u = ones(500, 1); % an all-one vector with 500 rows and 1 column
 
 while iteration < ITERATION_TIME
     iteration = iteration + 1;
@@ -19,8 +20,7 @@ while iteration < ITERATION_TIME
     % Generate the ER graph
     A = erdos_reyni(N, p);
 
-    % Compute the degree vector
-    u = ones(500, 1); % an all-one vector with 500 rows and 1 column
+    % Compute the degree vector    
     Deg = A * u; % Deg is also 500-by-1
 
     % Compute the Laplacian matrix and its eigenvalues
@@ -40,10 +40,11 @@ end
 % Simulation
 s_vector_bin = unique(s_vector);
 s_vector_hist = hist(s_vector, s_vector_bin);
-plot(s_vector_bin, s_vector_hist/ITERATION_TIME); % divided by ITERATION_TIME to show probability
+%plot(s_vector_bin, s_vector_hist/ITERATION_TIME,'o'); % divided by ITERATION_TIME to show probability
 
+% divided by ITERATION_TIME to show probability i
 figure
-semilogy(s_vector_bin, s_vector_hist/ITERATION_TIME); % divided by ITERATION_TIME to show probability
+semilogy(s_vector_bin,s_vector_hist/ITERATION_TIME,'r.','MarkerSize',25);
 
 % Fitting
 figure
