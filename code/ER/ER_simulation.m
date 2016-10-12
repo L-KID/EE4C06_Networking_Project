@@ -10,7 +10,7 @@ N = 500;
 d_av = 12;
 p = d_av/(N-1);
 u = ones(500, 1); % create an all-one vector with 500 rows and 1 column
-num_simulation = 5000; % Number of simulation times (should be 100000)
+num_simulation = 500; % Number of simulation times (should be 100000)
 
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);
@@ -38,7 +38,7 @@ for i = 1:1:num_simulation
         xlabel('k');
         ylabel('Degree and the Laplacian eigenvalues');
         title('The degree vector and the Laplacian eigenvalues of a graph');
-        legend('Laplacian eigenvalues u_{(k)}','Ordered degree d_{(k)}');
+        legend('Ordered degree d_{(k)}','Laplacian eigenvalues u_{(k)}');
         hold off;
     end
     Diag_matrix = diag(Deg);
