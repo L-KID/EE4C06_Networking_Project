@@ -66,6 +66,6 @@ loglog(rounded_eigen_Q_bin, rounded_eigen_Q_hist/(N*num_simulation) );% divided 
 xlim([0 200]);
 xlabel('x');
 ylabel('f_u(x)');
-title('The distribution of degree and Laplacian eigenvalues (BA)');
+title('The distribution of degrees and Laplacian eigenvalues (BA)');
 legend('degree','Laplacian eigenvalues');
 hold off;
