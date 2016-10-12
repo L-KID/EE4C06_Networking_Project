@@ -34,7 +34,7 @@ hold on;
 plot(eigen_Q1);
 xlabel('k');
 ylabel('Degree and the Laplacian eigenvalues');
-title('The degree vector and the Laplacian eigenvalues of a graph(WS)S');
+title('The degree vector and the Laplacian eigenvalues of a graph (WS)');
 legend('Ordered degree d_{(k)}','Laplacian eigenvalues u_{(k)}');
 hold off;
 
@@ -69,6 +69,6 @@ rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin);
 plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist/(N*num_simulation),'-*' ); % divided by N to show probability
 xlabel('x');
 ylabel('f_u(x)');
-title('The distribution of degree and Laplacian eigenvalues(WS)');
+title('The distribution of degree and Laplacian eigenvalues (WS)');
 legend('degree','Laplacian eigenvalues');
 hold off;
