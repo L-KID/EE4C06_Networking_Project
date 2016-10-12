@@ -1,5 +1,4 @@
 % This file generates an BA graph and does some subsequent computation.
-% This file generates an BA graph and does some subsequent computation.
 
 % Clear result of last computation
 clear;
@@ -31,7 +30,7 @@ hold on;
 plot(eigen_Q1);
 xlabel('k');
 ylabel('Degree and the Laplacian eigenvalues');
-title('The degree vector and the Laplacian eigenvalues of a graph');
+title('The degree vector and the Laplacian eigenvalues of a graph (BA)');
 legend('Ordered degree d_{(k)}','Laplacian eigenvalues u_{(k)}');
 hold off;
 
@@ -67,6 +66,6 @@ loglog(rounded_eigen_Q_bin, rounded_eigen_Q_hist/(N*num_simulation) );% divided 
 xlim([0 200]);
 xlabel('x');
 ylabel('f_u(x)');
-title('The distribution of degree and Laplacian eigenvalues');
+title('The distribution of degree and Laplacian eigenvalues (BA)');
 legend('degree','Laplacian eigenvalues');
 hold off;
