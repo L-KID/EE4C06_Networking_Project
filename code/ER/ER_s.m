@@ -9,7 +9,7 @@ clc;
 N = 500;
 d_av = 12;
 p = d_av/(N-1);
-ITERATION_TIME = 5000; 
+ITERATION_TIME = 2000; 
 iteration = 0;
 s_vector = zeros(ITERATION_TIME, 1);
 u = ones(500, 1); % an all-one vector with 500 rows and 1 column
@@ -39,15 +39,26 @@ end
 
 % Simulation
 s_vector_bin = unique(s_vector);
-s_vector_hist = hist(s_vector, s_vector_bin);
-%plot(s_vector_bin, s_vector_hist/ITERATION_TIME,'o'); % divided by ITERATION_TIME to show probability
+s_vector_hist = hist(s_vector, s_vector_bin)/ITERATION_TIME;
+%plot(s_vector_bin, s_vector_hist/ITERATION_TIME,'o'); 
+% divided by ITERATION_TIME to show probability
 
-% divided by ITERATION_TIME to show probability i
+%Fitting
 figure
-semilogy(s_vector_bin,s_vector_hist/ITERATION_TIME,'r.','MarkerSize',25);
-
-% Fitting
-figure
-pd = fitdist(s_vector,'Normal');
+semilogy(s_vector_bin,s_vector_hist,'r.','MarkerSize',25); % distribution figure
+hold on
+pd = fitdist(s_vector,'Kernel'); % fitting use Kernel distribution
 y = pdf(pd, s_vector_bin);
-semilogy(s_vector_bin, y, 'LineWidth', 2);
+semilogy(s_vector_bin, y, 'LineWidth', 2); % fitting figure
+xlabel('k')
+ylabel('Distribution')
+legend('Distribution','Fitting')
+title('Fitting distribution by Kernel function')
+hold off
+
+% Fitting use Gaussian distribution 
+% Fail£¡
+% gaussEqn =fittype( 'a*exp(-((x-b)/c)^2)+d');
+% StartP = [1.5 900 10 0.6];
+% f1 = fit(s_vector_bin,s_vector_hist', gaussEqn, StartP);
+% plot(f1,s_vector_bin,s_vector_hist);
