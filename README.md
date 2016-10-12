@@ -1,8 +1,8 @@
 # EE4C06_Networking_Project
 
-This repository is for the bonus project of course EE4C06 Networking.
+This repository is for the bonus project of the course EE4C06 Networking.
 
-This repository is built by the joint effort of:
+It is built by the joint effort of:
 
 [Chengxin Ma](https://github.com/MaChengxin)
 
