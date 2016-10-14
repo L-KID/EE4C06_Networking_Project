@@ -55,9 +55,9 @@ end
 Deg_all = unique(cell2mat(Deg_bin));
 Deg_hist = hist(cell2mat(Deg_org), Deg_all);
 
-% Plots
+%% Plots
 figure
-plot(Deg_all, Deg_hist/(N*num_simulation),'-o') % divided by N to show probability
+plot(Deg_all, Deg_hist/(N*num_simulation),'-o')
 hold on;
 
 % Laplacian eigenvalues distribution
@@ -69,7 +69,7 @@ plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'-*' )
 xlabel('x')
 ylabel('f_?x)')
 title('The distribution of degrees and Laplacian eigenvalues (WS)')
-legend('degree','Laplacian eigenvalues')
+legend('degrees','Laplacian eigenvalues')
 hold off
 
 % Fitting Laplacian eigenvalues by Kernel
@@ -87,6 +87,7 @@ hold off
 % hold off
 
 % Fitting by Gaussian distribution
+figure
 f = fittype('a*exp(-((x-b)/c)^2)');
 plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
 startPoints = [0.15 12 3];
