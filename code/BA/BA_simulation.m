@@ -84,7 +84,6 @@ legend('Distribution','Fitting')
 title('Fitting Laplacian eigenvalues distribution by Kernel function (BA)')
 hold off
 
-
 % Fitting by Gaussian distribution
 % For BA, maybe it is not a Gaussian distribution, maybe a exp 
 % f = fittype('a*exp(-((x-b)/c)^2)');
