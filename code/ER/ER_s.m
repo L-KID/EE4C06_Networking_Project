@@ -2,7 +2,7 @@
 % s.
 
 % Clear result of last computation
-clear all;
+clear;
 close all;
 clc;
 
