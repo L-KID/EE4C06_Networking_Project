@@ -3,6 +3,7 @@
 
 % Clear result of last computation
 clear;
+close all;
 clc;
 
 % Value assignment
@@ -45,11 +46,11 @@ s_vector_hist = hist(s_vector, s_vector_bin)/ITERATION_TIME;
 
 %Fitting
 figure
-semilogy(s_vector_bin,s_vector_hist,'r.','MarkerSize',25); % distribution figure
+semilogy(s_vector_bin,s_vector_hist,'r.','MarkerSize',25) % distribution figure
 hold on
 pd = fitdist(s_vector,'Kernel'); % fitting use Kernel distribution
 y = pdf(pd, s_vector_bin);
-semilogy(s_vector_bin, y, 'LineWidth', 2); % fitting figure
+semilogy(s_vector_bin, y, 'LineWidth', 2) % fitting figure
 xlabel('k')
 ylabel('Distribution')
 legend('Distribution','Fitting')
