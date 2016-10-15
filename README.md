@@ -15,3 +15,5 @@ It is built by the joint effort of:
 [Minfeng Li](https://github.com/lmf5103510)
 
 The code can be found [here](https://github.com/MaChengxin/EE4C06_Networking_Project/tree/master/code).
+
+The report is available on [Overleaf](https://www.overleaf.com/read/fvnwjkfgtjqj).
