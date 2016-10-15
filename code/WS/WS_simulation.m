@@ -67,7 +67,7 @@ rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin)/(N*num_simulat
 
 plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'-*' )
 xlabel('x')
-ylabel('f_?x)')
+ylabel('f_u(x)')
 title('The distribution of degrees and Laplacian eigenvalues (WS)')
 legend('degrees','Laplacian eigenvalues')
 hold off
@@ -96,7 +96,7 @@ yy = cfun.a*exp(-((rounded_eigen_Q_bin-cfun.b)/cfun.c).^2);
 hold on
 plot(rounded_eigen_Q_bin, yy,'LineWidth', 2)
 xlabel('k')
-ylabel('f_?x)')
+ylabel('f_u(x)')
 legend('Distribution','Fitting')
 title('Fitting Laplacian eigenvalues distribution by Kernel function (WS)')
 hold off
