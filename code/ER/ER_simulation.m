@@ -18,30 +18,54 @@ Deg_bin = cell(num_simulation,1);
 Deg_org = cell(num_simulation,1);
 eigen_Q = cell(num_simulation,1);
 
-%% Computation with 100000 random graph for both Degrees and Eigenvalues
-% Store all data in the cell, including unique array, and the original value
+%% Plot distribution of degree and eigenvalues for one ER graph
+A = erdos_reyni(N, p);
+Deg = A * u;
+
+% Compute the Laplacian matrix and its eigenvalues
+sorted_Deg = sort(Deg);
+diag_matrix = diag(Deg);
+Q = diag_matrix - A;
+eig_Q = eig(Q);  %compute eigenvaluas of Q
+        
+% Plot
+plot(sorted_Deg)
+hold on
+plot(eig_Q)
+xlabel('k')
+ylabel('Degrees and Laplacian eigenvalues')
+title('The degree vector and the Laplacian eigenvalues of one ER graph')
+legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
+hold off
+
+%% Plot multiple simulations for q1
+total_eigen = zeros(500,1);
+total_Deg = zeros(500,1);
 for i = 1:1:num_simulation
     % Generate the ER graph
     A = erdos_reyni(N, p);
     Deg = A * u;
-    % Plot distribution of degree and eigenvalues for one ER graph
-    if i == 1 % for question 1, only one simulation is sufficient
-        % Compute the Laplacian matrix and its eigenvalues
-        sorted_Deg = sort(Deg);
-        diag_matrix = diag(Deg);
-        Q1 = diag_matrix - A;
-        eigen_Q1 = eig(Q1);
-        
-        % Plot
-        plot(sorted_Deg)
-        hold on
-        plot(eigen_Q1)
-        xlabel('k')
-        ylabel('Degrees and Laplacian eigenvalues')
-        title('The degree vector and the Laplacian eigenvalues of the ER graph')
-        legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
-        hold off
-    end
+    Diag_matrix = diag(Deg);
+    Q = Diag_matrix - A;    
+    eig_Q = eig(Q);  %compute eigenvaluas of Q
+    sorted_Deg = sort(Deg);
+    total_Deg = total_Deg + sorted_Deg;
+    total_eigen = total_eigen + eig_Q;  
+end
+figure
+plot(total_Deg/num_simulation)
+hold on
+plot(total_eigen/num_simulation)
+xlabel('k')
+ylabel('Degrees and the Laplacian eigenvalues')
+title('The average degrees and Laplacian eigenvalues of multiple ER graphs')
+legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
+hold off
+
+%% Computation with 100000 random graph for both Degrees and Eigenvalues
+% Store all data in the cell, including unique array, and the original value
+for i = 1:1:num_simulation
+    % Generate the ER graph
     Diag_matrix = diag(Deg);
     Q = Diag_matrix - A;
     eigen_Q(i,1) = {eig(Q)};
