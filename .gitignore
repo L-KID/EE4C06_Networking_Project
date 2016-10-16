@@ -1,0 +1,6 @@
+# MATLAB autosave files
+*.asv
+
+# Figures
+*.png
+*.fig

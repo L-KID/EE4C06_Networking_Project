@@ -29,6 +29,7 @@ eig_Q = eig(Q);
 plot(sorted_Deg)
 hold on
 plot(eig_Q)
+ylim([0,inf])
 xlabel('k')
 ylabel('Degrees and the Laplacian eigenvalues')
 title('The degree vector and the Laplacian eigenvalues of one BA graph')
@@ -55,6 +56,7 @@ figure
 plot(total_Deg/num_simulation)
 hold on
 plot(total_eigen/num_simulation)
+ylim([0,inf])
 xlabel('k')
 ylabel('Degrees and the Laplacian eigenvalues')
 title('The average degrees and Laplacian eigenvalues of multiple BA graphs')
