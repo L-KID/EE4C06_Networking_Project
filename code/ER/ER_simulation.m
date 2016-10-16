@@ -26,12 +26,12 @@ Deg = A * u;
 sorted_Deg = sort(Deg);
 diag_matrix = diag(Deg);
 Q = diag_matrix - A;
-eigen_Q1 = eig(Q);  %compute eigenvaluas of Q
+eig_Q = eig(Q);  %compute eigenvaluas of Q
         
 % Plot
 plot(sorted_Deg)
 hold on
-plot(eigen_Q1)
+plot(eig_Q)
 xlabel('k')
 ylabel('Degrees and Laplacian eigenvalues')
 title('The degree vector and the Laplacian eigenvalues of one ER graph')
@@ -47,10 +47,10 @@ for i = 1:1:num_simulation
     Deg = A * u;
     Diag_matrix = diag(Deg);
     Q = Diag_matrix - A;    
-    eigen_Q1 = eig(Q);  %compute eigenvaluas of Q
+    eig_Q = eig(Q);  %compute eigenvaluas of Q
     sorted_Deg = sort(Deg);
     total_Deg = total_Deg + sorted_Deg;
-    total_eigen = total_eigen + eigen_Q1;  
+    total_eigen = total_eigen + eig_Q;  
 end
 figure
 plot(total_Deg/num_simulation)
