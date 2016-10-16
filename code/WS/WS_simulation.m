@@ -11,7 +11,7 @@ k= 12;
 p = 0.1 ;
 
 u = ones(500, 1);
-num_simulation = 500; % Number of simulation times (should be 100000)
+num_simulation = 100000; % Number of simulation times (should be 100000)
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);
 Deg_org = cell(num_simulation,1);
@@ -25,7 +25,7 @@ Deg = A * u;
 sorted_Deg = sort(Deg);
 diag_matrix = diag(Deg);
 Q = diag_matrix - A;
-eig_Q = eig(Q);  %compute eigenvaluas of Q
+eig_Q = eig(Q);  % compute eigenvaluas of Q
         
 % Plot
 plot(sorted_Deg)
@@ -46,7 +46,7 @@ for i = 1:1:num_simulation
     Deg = A * u;
     Diag_matrix = diag(Deg);
     Q = Diag_matrix - A;    
-    eig_Q = eig(Q); %compute eigenvaluas of Q
+    eig_Q = eig(Q); % compute eigenvaluas of Q
     sorted_Deg = sort(Deg);
     total_Deg = total_Deg + sorted_Deg;
     total_eigen = total_eigen + eig_Q;  
@@ -90,7 +90,7 @@ rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin)/(N*num_simulat
 
 plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'-*' )
 xlabel('x')
-ylabel('f_u(x)')
+ylabel('f_\mu(x)')
 title('The distribution of degrees and Laplacian eigenvalues (WS)')
 legend('degrees','Laplacian eigenvalues')
 hold off
@@ -119,7 +119,7 @@ yy = cfun.a*exp(-((rounded_eigen_Q_bin-cfun.b)/cfun.c).^2);
 hold on
 plot(rounded_eigen_Q_bin, yy,'LineWidth', 2)
 xlabel('k')
-ylabel('f_u(x)')
+ylabel('f_\mu(x)')
 legend('Distribution','Fitting')
 title('Fitting Laplacian eigenvalues distribution by Kernel function (WS)')
 hold off
