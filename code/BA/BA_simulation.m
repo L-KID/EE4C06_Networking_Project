@@ -11,7 +11,7 @@ N = 500;
 m = 6;
 m0 = 7; % m0 > m
 u = ones(500, 1);
-num_simulation = 100; % Number of simulation times (should be 100000)
+num_simulation = 500; % Number of simulation times (should be 100000)
 
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);
@@ -31,7 +31,31 @@ hold on
 plot(eigen_Q1)
 xlabel('k')
 ylabel('Degrees and the Laplacian eigenvalues')
-title('The degree vector and the Laplacian eigenvalues of the BA graph')
+title('The degree vector and the Laplacian eigenvalues of one BA graph')
+legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
+hold off
+
+%% Plot multiple simulations for q1
+total_eigen = zeros(500,1);
+total_Deg = zeros(500,1);
+for i = 1:1:num_simulation
+    % Generate the BA graph
+    A = scalefree(N, m0, m);
+    Deg = A * u;
+    Diag_matrix = diag(Deg);
+    Q = Diag_matrix - A;    
+    eigen_Q2 = eig(Q);
+    sorted_Deg2 = sort(Deg);
+    total_Deg = total_Deg + sorted_Deg2;
+    total_eigen = total_eigen + eigen_Q2;  
+end
+figure
+plot(total_Deg/num_simulation)
+hold on
+plot(total_eigen/num_simulation)
+xlabel('k')
+ylabel('Degrees and the Laplacian eigenvalues')
+title('The average degrees and Laplacian eigenvalues of multiple BA graphs')
 legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
 hold off
 
@@ -55,7 +79,6 @@ Deg_hist = hist(cell2mat(Deg_org), Deg_all);
 %% Plots
 figure
 loglog(Deg_all, Deg_hist/(N*num_simulation))
-xlim([0 200]) % limit x axis
 hold on
 
 % Laplacian eigenvalues distribution
@@ -64,7 +87,6 @@ rounded_eigen_Q_bin = unique(rounded_eigen_Q);
 rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin)/(N*num_simulation);
 
 loglog(rounded_eigen_Q_bin, rounded_eigen_Q_hist )
-xlim([0 200])
 xlabel('x')
 ylabel('f_u(x)')
 title('The distribution of degrees and Laplacian eigenvalues (BA)')

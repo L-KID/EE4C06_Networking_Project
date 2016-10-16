@@ -11,7 +11,7 @@ k= 12;
 p = 0.1 ;
 
 u = ones(500, 1);
-num_simulation = 2000;
+num_simulation = 500; % Number of simulation times (should be 100000)
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);
 Deg_org = cell(num_simulation,1);
@@ -33,10 +33,33 @@ hold on
 plot(eigen_Q1)
 xlabel('k')
 ylabel('Degrees and the Laplacian eigenvalues')
-title('The degree vector and the Laplacian eigenvalues of the WS graph')
+title('The degree vector and the Laplacian eigenvalues of one WS graph')
 legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
 hold off
 
+%% Plot multiple simulations for q1
+total_eigen = zeros(500,1);
+total_Deg = zeros(500,1);
+for i = 1:1:num_simulation
+    % Generate the ER graph
+    A = small_world(N, k, p);
+    Deg = A * u;
+    Diag_matrix = diag(Deg);
+    Q = Diag_matrix - A;    
+    eigen_Q2 = eig(Q);
+    sorted_Deg2 = sort(Deg);
+    total_Deg = total_Deg + sorted_Deg2;
+    total_eigen = total_eigen + eigen_Q2;  
+end
+figure
+plot(total_Deg/num_simulation)
+hold on
+plot(total_eigen/num_simulation)
+xlabel('k')
+ylabel('Degrees and the Laplacian eigenvalues')
+title('The average degrees and Laplacian eigenvalues of multiple WS graphs')
+legend('degrees d_{(k)}','Laplacian eigenvalues u_{(k)}')
+hold off
 
 %% Computation with 100000 random graph for both Degree and Eigenvalue
 % Store all data in the cell, including unique array, and the original value
