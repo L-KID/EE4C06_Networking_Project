@@ -11,7 +11,7 @@ N = 500;
 m = 6;
 m0 = 7; % m0 > m
 u = ones(500, 1);
-num_simulation = 500; % Number of simulation times (should be 100000)
+num_simulation = 10; % Number of simulation times (should be 100000)
 
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);
@@ -44,7 +44,7 @@ for i = 1:1:num_simulation
     Deg = A * u;
     Diag_matrix = diag(Deg);
     Q = Diag_matrix - A;    
-    eigen_Q1 = eig(Q);  %compute eigenvaluas of Q
+    eigen_Q1 = eig(Q);
     sorted_Deg = sort(Deg);
     total_Deg = total_Deg + sorted_Deg;
     total_eigen = total_eigen + eigen_Q1;  
