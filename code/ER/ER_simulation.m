@@ -66,6 +66,8 @@ hold off
 % Store all data in the cell, including unique array, and the original value
 for i = 1:1:num_simulation
     % Generate the ER graph
+    A = erdos_reyni(N, p);
+    Deg = A * u;
     Diag_matrix = diag(Deg);
     Q = Diag_matrix - A;
     eigen_Q(i,1) = {eig(Q)};
