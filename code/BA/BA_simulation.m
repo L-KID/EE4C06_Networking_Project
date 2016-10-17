@@ -11,7 +11,7 @@ N = 500;
 m = 6;
 m0 = 7; % m0 > m
 u = ones(500, 1);
-num_simulation = 100; % Number of simulation times (should be 100000)
+num_simulation = 100000; % Number of simulation times (should be 100000)
 
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);

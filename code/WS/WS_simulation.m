@@ -12,7 +12,7 @@ k= 12;
 p = 0.1;
 
 u = ones(500, 1);
-num_simulation = 100; % Number of simulation times (should be 100000)
+num_simulation = 100000; % Number of simulation times (should be 100000)
 % Define 3 cells to store arrays
 Deg_bin = cell(num_simulation,1);
 Deg_org = cell(num_simulation,1);
