@@ -11,7 +11,7 @@ N = 500;
 d_av = 12;
 p = d_av/(N-1);
 u = ones(500, 1);
-NUM_SIMULATION = 300; % Number of simulation times (should be 100000)
+NUM_SIMULATION = 100000; % Number of simulation times (should be 100000)
 
 % Define 3 cells to store arrays
 Deg_bin = cell(NUM_SIMULATION,1);
