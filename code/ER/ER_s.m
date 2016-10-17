@@ -55,3 +55,5 @@ ylabel('Distribution')
 legend('Distribution','Fitting')
 title('Fitting distribution by Kernel function')
 hold off
+savefig('../../figures/ER/fig/ER_s_fitting.fig');
+saveas(gcf, '../../figures/ER/png/ER_s_fitting.png');
