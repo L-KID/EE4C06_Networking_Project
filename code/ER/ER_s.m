@@ -10,7 +10,7 @@ clc;
 N = 500;
 d_av = 12;
 p = d_av/(N-1);
-ITERATION_TIME = 2000; 
+ITERATION_TIME = 100000; 
 iteration = 0;
 s_vector = zeros(ITERATION_TIME, 1);
 u = ones(500, 1); % an all-one vector with 500 rows and 1 column
