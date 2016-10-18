@@ -49,9 +49,9 @@ f = fittype('a*exp(-((x-b)/c)^2)');
 semilogy(s_vector_bin,s_vector_hist,'r.','MarkerSize',25) % distribution figure
 startPoints = [0.063 221 8.98];
 [cfun, gof] = fit(s_vector_bin(:), s_vector_hist(:), f, 'Start', startPoints);
-yy = cfun.a*exp(-((s_vector_bin-cfun.b)/cfun.c).^2);
+y = cfun.a*exp(-((s_vector_bin-cfun.b)/cfun.c).^2);
 hold on
-semilogy(s_vector_bin, yy, 'LineWidth', 2) % fitting figure
+semilogy(s_vector_bin, y, 'LineWidth', 2) % fitting figure
 xlabel('k')
 ylabel('Distribution')
 legend('Distribution','Fitting')
