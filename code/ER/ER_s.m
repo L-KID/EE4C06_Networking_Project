@@ -1,16 +1,16 @@
 % This file generates an ER graph, computes s, and plot the distribution of
 % s.
 
-% Clear result of last computation
+%% Clear result of last computation
 clear;
 close all;
 clc;
 
-% Value assignment
+%% Value assignment
 N = 500;
 d_av = 12;
 p = d_av/(N-1);
-ITERATION_TIME = 2000; 
+ITERATION_TIME = 100000; 
 iteration = 0;
 s_vector = zeros(ITERATION_TIME, 1);
 u = ones(500, 1); % an all-one vector with 500 rows and 1 column
@@ -41,10 +41,9 @@ end
 % Simulation
 s_vector_bin = unique(s_vector);
 s_vector_hist = hist(s_vector, s_vector_bin)/ITERATION_TIME;
-%plot(s_vector_bin, s_vector_hist/ITERATION_TIME,'o'); 
 % divided by ITERATION_TIME to show probability
 
-%Fitting
+%% Fitting
 figure
 semilogy(s_vector_bin,s_vector_hist,'r.','MarkerSize',25) % distribution figure
 hold on
@@ -56,10 +55,5 @@ ylabel('Distribution')
 legend('Distribution','Fitting')
 title('Fitting distribution by Kernel function')
 hold off
-
-% Fitting use Gaussian distribution 
-% Fail£¡
-% gaussEqn =fittype( 'a*exp(-((x-b)/c)^2)+d');
-% StartP = [1.5 900 10 0.6];
-% f1 = fit(s_vector_bin,s_vector_hist', gaussEqn, StartP);
-% plot(f1,s_vector_bin,s_vector_hist);
+savefig('../../figures/ER/fig/ER_s_fitting.fig');
+saveas(gcf, '../../figures/ER/png/ER_s_fitting.png');
