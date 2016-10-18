@@ -1,12 +1,13 @@
 % This function is to generate figures of degree, eigenvalue and their 
 % distribution for different graphs
+
+function y = graph_fig(G, P, N)
 % G is the type of graph, which should be 'ER', 'BA', or 'WS'
 % P is a array for the parameters of graph
 % N is the number of simulation
 
-function y = graph_fig(G, P, N)
-
 u = ones(500, 1);
+% Define 3 cells to store arrays
 Deg_bin = cell(N,1);
 Deg_org = cell(N,1);
 eigen_Q = cell(N,1);
@@ -14,6 +15,7 @@ eigen_Q = cell(N,1);
 total_eigen = zeros(P(1),1);
 total_Deg = zeros(P(1),1);
 
+%% Compute degrees and eigenvalues for N times and store in cells
 if G=='ER'
     for i = 1:1:N
             % Generate the ER graph
@@ -33,7 +35,7 @@ if G=='ER'
             
 elseif G=='BA'
             for i = 1:1:N
-            % Generate the ER graph
+            % Generate the BA graph
             A = scalefree(P(1),P(2),P(3));
             Deg = A * u;
             Diag_matrix = diag(Deg);
@@ -50,7 +52,7 @@ elseif G=='BA'
     
 elseif G=='WS'
     for i = 1:1:N
-            % Generate the ER graph
+            % Generate the WS graph
             A = small_world(P(1),P(2),P(3));
             Deg = A * u;
             Diag_matrix = diag(Deg);
@@ -70,13 +72,14 @@ else
         return 
 end
 
-% Plot degrees and eigenvalues for one graph
+%% Plot degrees and eigenvalues for one graph
 Deg = A * u;
 sorted_Deg = sort(Deg);
 diag_matrix = diag(Deg);
 Q = diag_matrix - A;
 eig_Q = eig(Q);
 % Plot 
+figure
 plot(sorted_Deg)
 hold on
 plot(eig_Q)
@@ -89,7 +92,7 @@ hold off
 savefig(['../../figures/' G '/fig/' G '_deg_and_eig_single.fig']);
 saveas(gcf, ['../../figures/' G '/png/' G '_deg_and_eig_single.png']);
 
-%Plot degrees and eigenvalues for multiple graphs
+%% Plot degrees and eigenvalues for multiple graphs
 figure
 plot(total_Deg/N)
 hold on
@@ -103,7 +106,7 @@ hold off
 savefig(['../../figures/' G '/fig/' G '_deg_and_eig_multiple.fig']);
 saveas(gcf, ['../../figures/' G '/png/' G '_deg_and_eig_multiple.png']);
               
-% Compute all unique value from all data, and hist data
+%% Compute all unique value from all data, and hist data
 Deg_all = unique(cell2mat(Deg_bin));
 Deg_hist = hist(cell2mat(Deg_org), Deg_all);
 
@@ -112,7 +115,7 @@ rounded_eigen_Q = round(cell2mat(eigen_Q));
 rounded_eigen_Q_bin = unique(rounded_eigen_Q);
 rounded_eigen_Q_hist = hist(rounded_eigen_Q, rounded_eigen_Q_bin)/(P(1)*N);
 
-% Plot distribution of degree and eigenvalues
+%% Plot distribution of degree and eigenvalues
 if G=='BA'
 figure
 loglog(Deg_all, Deg_hist/(P(1)*N))
@@ -139,7 +142,7 @@ savefig(['../../figures/' G '/fig/' G '_distribution.fig']);
 saveas(gcf, ['../../figures/' G '/png/' G '_distribution.png']);
 end
 
-%%Fitting
+%% Fitting
 if G=='ER'
 figure
 plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
