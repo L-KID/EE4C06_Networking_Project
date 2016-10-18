@@ -43,12 +43,14 @@ s_vector_bin = unique(s_vector);
 s_vector_hist = hist(s_vector, s_vector_bin)/ITERATION_TIME;
 % divided by ITERATION_TIME to show probability
 
-%% Fitting
+%% Fitting by Gaussian distribution
 figure
+f = fittype('a*exp(-((x-b)/c)^2)');
 semilogy(s_vector_bin,s_vector_hist,'r.','MarkerSize',25) % distribution figure
+startPoints = [0.063 221 8.98];
+[cfun, gof] = fit(s_vector_bin(:), s_vector_hist(:), f, 'Start', startPoints);
+y = cfun.a*exp(-((s_vector_bin-cfun.b)/cfun.c).^2);
 hold on
-pd = fitdist(s_vector,'Kernel'); % fitting use Kernel distribution
-y = pdf(pd, s_vector_bin);
 semilogy(s_vector_bin, y, 'LineWidth', 2) % fitting figure
 xlabel('k')
 ylabel('Distribution')
