@@ -4,7 +4,7 @@ This repository is for the bonus project of the course EE4C06 Networking.
 
 It is built by the joint effort of:
 
-[Chengxin Ma](https://github.com/MaChengxin) (马承新)
+[Chengxin Ma](http://www.martialartsmoviejunkie.com/wp-content/uploads/2014/12/Daniel-Wu-2.jpg) (马承新)
 
 [Xin Liu](https://github.com/L-KID) (刘歆)
 
