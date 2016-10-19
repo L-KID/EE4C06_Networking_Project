@@ -15,6 +15,7 @@ total_eigen = zeros(P(1),1);
 total_Deg = zeros(P(1),1);
 
 %% Compute degrees and eigenvalues for N times and store in cells
+addpath(genpath('./'));
 for i = 1:1:N
     % Generate the graph
     switch G
