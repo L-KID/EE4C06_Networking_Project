@@ -16,8 +16,18 @@ total_Deg = zeros(P(1),1);
 
 %% Compute degrees and eigenvalues for N times and store in cells
 for i = 1:1:N
-    % Generate the ER graph
-    A = graph_gen(G, P);
+    % Generate the graph
+    switch G
+    case 'BA'
+        A = scalefree(P(1), P(2), P(3));
+    case 'ER'
+        A = erdos_reyni(P(1), P(2));
+    case 'WS'
+        A = small_world(P(1), P(2), P(3));
+    otherwise
+        disp('Wrong graph type');
+        return
+    end
     Deg = A * u;
     Diag_matrix = diag(Deg);
     Q = Diag_matrix - A;
@@ -32,7 +42,6 @@ for i = 1:1:N
 end
 
 %% Plot degrees and eigenvalues for one graph
-% Plot
 figure
 plot(sorted_Deg)
 hold on
@@ -89,53 +98,33 @@ savefig(['../figures/' G '/fig/' G '_distribution.fig']);
 saveas(gcf, ['../figures/' G '/png/' G '_distribution.png']);
 
 %% Fitting
+figure
 if G=='ER'
-    figure
+    [f, xi] = ksdensity(rounded_eigen_Q,'Width',0.8);% fitting use Kernel distribution
     plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
     hold on
-    [f, xi] = ksdensity(rounded_eigen_Q,'Width',0.8);
-    plot(xi, f, 'LineWidth', 2)
-    xlabel('k')
-    ylabel('f_\mu(x)')
-    legend('Distribution','Fitting')
-    title('Fitting Laplacian eigenvalues distribution by Kernel function (ER)')
-    hold off
-    savefig('../figures/ER/fig/ER_fitting.fig');
-    saveas(gcf, '../figures/ER/png/ER_fitting.png');
-end
-
-if G=='BA'
-    figure
-    loglog(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
-    hold on
+    plot(xi, f, 'LineWidth', 2) % fitting figure
+elseif G=='BA'
     pd = fitdist(rounded_eigen_Q,'Kernel'); % fitting use Kernel distribution
     y = pdf(pd, rounded_eigen_Q_bin);
-    loglog(rounded_eigen_Q_bin, y, 'LineWidth', 2) % fitting figure
-    xlabel('k')
-    ylabel('f_\mu(x)')
-    legend('Distribution','Fitting')
-    title('Fitting Laplacian eigenvalues distribution by Kernel function (BA)')
-    hold off
-    savefig('../figures/BA/fig/BA_fitting.fig');
-    saveas(gcf, '../figures/BA/png/BA_fitting.png');
-end
-
-if G=='WS'
-    figure
-    f = fittype('a*exp(-((x-b)/c)^2)');
-    plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
-    startPoints = [0.15 12 3];
-    [cfun, gof] = fit(rounded_eigen_Q_bin(:), rounded_eigen_Q_hist(:), f, 'Start', startPoints);
-    yy = cfun.a*exp(-((rounded_eigen_Q_bin-cfun.b)/cfun.c).^2);
+    loglog(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
     hold on
-    plot(rounded_eigen_Q_bin, yy,'LineWidth', 2)
+    loglog(rounded_eigen_Q_bin, y, 'LineWidth', 2) % fitting figure
+elseif G=='WS'
+    f = fittype('a*exp(-((x-b)/c)^2)');% fitting use Gaussian distribution
+    startPoints = [0.15 12 3];
+    [cfun, ~] = fit(rounded_eigen_Q_bin(:), rounded_eigen_Q_hist(:), f, 'Start', startPoints);
+    y = cfun.a*exp(-((rounded_eigen_Q_bin-cfun.b)/cfun.c).^2);
+    plot(rounded_eigen_Q_bin, rounded_eigen_Q_hist,'r.','MarkerSize',25 )
+    hold on
+    plot(rounded_eigen_Q_bin, y,'LineWidth', 2) % fitting figure
+end
     xlabel('k')
     ylabel('f_\mu(x)')
     legend('Distribution','Fitting')
-    title('Fitting Laplacian eigenvalues distribution by Kernel function (WS)')
+    title(['Fitting Laplacian eigenvalues distribution by Kernel function (' G ')'])
     hold off
-    savefig('../figures/WS/fig/WS_fitting.fig');
-    saveas(gcf, '../figures/WS/png/WS_fitting.png');
-end
+    savefig(['../figures/' G '/fig/' G '_fitting.fig']);
+    saveas(gcf, ['../figures/' G '/png/' G '_fitting.png']);
 
 end
