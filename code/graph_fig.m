@@ -1,7 +1,7 @@
 % This function is to generate figures of degree, eigenvalue and their
 % distribution for different graphs
 
-function y = graph_fig(G, P, N)
+function graph_fig(G, P, N)
 % G is the type of graph, which should be 'ER', 'BA', or 'WS'
 % P is a array for the parameters of graph
 % N is the number of simulation times
