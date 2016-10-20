@@ -1,4 +1,4 @@
-# EE4C06_Networking_Project
+# Spectral Analysis of Networks
 
 This repository is for the bonus project of the course EE4C06 Networking.
 
