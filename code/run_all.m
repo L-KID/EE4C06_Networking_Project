@@ -20,3 +20,5 @@ NUM_SIMULATION = 100000;
 graph_fig('BA', [N m0 m], NUM_SIMULATION);
 graph_fig('ER', [N p1], NUM_SIMULATION);
 graph_fig('WS', [N k p2], NUM_SIMULATION);
+
+close all;
